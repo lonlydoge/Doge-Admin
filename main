@@ -861,7 +861,7 @@ IceGear.AddCommand("kill","Kills the included player",function(player)
         Tool.Handle.Size = Vector3.new(4,4,4)
         Equip(Tool)
         repeat Heartbeat:wait()
-        CFrameTool(Tool, TargetCharacter.HumanoidRootPart)
+        CFrameTool(Tool, TargetCharacter.HumanoidRootPart.CFrame)
         until Tool.Parent == TargetCharacter
         LocalPlayer.Character.Humanoid.Health = 0
         LocalPlayer.Character = nil
