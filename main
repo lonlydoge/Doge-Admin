@@ -72,6 +72,9 @@ end
 local GetCharacter = function()
 return LocalPlayer.Character
 end
+local getRArm = function(player)
+return player:FindFirstChild("Right Arm") or player:FindFirstChild("RightLowerArm")
+end
 local GetHRP = function()
 return FindFirstChild(GetCharacter(), "HumanoidRootPart");
 end
