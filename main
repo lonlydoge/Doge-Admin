@@ -1,1 +1,1003 @@
 
+--/ This admin IS skidded from Overflow v1 that got leaked Credits go to them: Synttax, dhruvil, ANN0B1S
+--/ If you plan to make a admin using these commands please credit the original creators.
+
+repeat
+    wait()
+until game:GetService("Players").LocalPlayer ~= nil
+
+if not game:GetService("Players").LocalPlayer.Character then
+    game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
+end
+
+--/ Variables
+local PlayerService = game:GetService("Players")
+if not workspace:FindFirstChild("Executed") then
+-- Making the time script so it knows to reset or not
+Instance.new("StringValue",workspace).Name = "Executed"
+for i,v in pairs(PlayerService:GetPlayers()) do
+if not v.Character:FindFirstChild("Time") then
+spawn(function()
+local Time = Instance.new("NumberValue",v.Character)
+Time.Name = "Time"
+spawn(function()
+while v.Character:WaitForChild'Humanoid'.Health > 0 do
+wait(1)
+Time.Value = Time.Value + 1
+end
+end)
+v.CharacterAdded:Connect(function()
+local Time = Instance.new("NumberValue",v.Character)
+Time.Name = "Time"
+spawn(function()
+while v.Character:WaitForChild'Humanoid'.Health > 0 do
+wait(1)
+Time.Value = Time.Value + 1
+end
+end)
+end)
+end)
+end
+end
+
+game.Players.PlayerAdded:Connect(function(v)
+v.CharacterAdded:Connect(function()
+local Time = Instance.new("NumberValue",v.Character)
+Time.Name = "Time"
+spawn(function()
+while v.Character:WaitForChild'Humanoid'.Health > 0 do
+wait(1)
+Time.Value = Time.Value + 1
+end
+end)
+end)
+end)
+end
+local Players = game:GetService("Players")
+local plrs = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character
+local Workspace = game:GetService("Workspace")
+local CoreGui = game:GetService("CoreGui")
+local Heartbeat = game:GetService("RunService").Heartbeat
+local FindFirstChild = function(parent, victim)
+return parent:FindFirstChild(victim)
+end
+local Clone = function(c)
+return c:Clone()
+end
+local Destroy = function(d)
+d:Destroy()
+end
+local GetCharacter = function()
+return LocalPlayer.Character
+end
+local GetHRP = function()
+return FindFirstChild(GetCharacter(), "HumanoidRootPart");
+end
+local getRoot = function(char)
+	return char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
+end
+local pos = GetHRP().CFrame
+local GetHumanoid = function()
+return GetCharacter():FindFirstChildWhichIsA("Humanoid")
+end
+local Equip = function(e)
+if not GetCharacter():FindFirstChild("hReplaced") then
+GetHumanoid():EquipTool(e)
+else
+e.Parent = GetCharacter()
+end
+end
+local ReplaceHumanoid = function(Hum)
+    local Humanoid = Hum or GetHumanoid();
+    local NewHumanoid = Clone(Humanoid);
+    NewHumanoid.Parent = Humanoid.Parent
+    NewHumanoid.Name = Humanoid.Name
+    Workspace.Camera.CameraSubject = NewHumanoid
+    Destroy(Humanoid);
+    Instance.new("StringValue",LocalPlayer.Character).Name = "hReplaced"
+    return NewHumanoid
+end
+
+local CFrameTool = function(tool, pos)
+    local RightArm = FindFirstChild(GetCharacter(), "RightLowerArm") or FindFirstChild(GetCharacter(), "Right Arm");
+    local Arm = RightArm.CFrame * CFrame.new(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0);
+    local Frame = Arm:ToObjectSpace(pos):Inverse()
+
+    tool.Grip = Frame
+end
+
+local IceGear = {
+    Cmds = {}, 
+    Events = {}, 
+    Debounces = {CmdCooldown = false}, 
+    CommandKey = "BackSlash", -- what to open the commandbar with (check out: https://developer.roblox.com/en-us/api-reference/enum/KeyCode)
+    Prefix = "?", -- need to use prefix in default chat, can also be used in commandbar but isn't necessary
+}
+
+local Settings = {
+    Prefix = "?",
+    Version = "0.0.1"
+}
+
+for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
+    if v.Name == "IceGear_AdminGui" then
+        v:Destroy()
+    end
+end
+
+for i, v in pairs(game:GetService("Lighting"):GetChildren()) do
+    if v.Name == "BlueColorCorrection" or v.Name == "CmdBlurEffect" then
+        v:Destroy()
+    end
+end
+
+--/ Main Gui Creation 'n it's properties
+
+local IceGear_AdminGui = Instance.new("ScreenGui")
+local Intro = Instance.new("Folder")
+local LeftFrameThing = Instance.new("Frame")
+local LoadingFrame = Instance.new("Frame")
+local LoadingThing = Instance.new("Frame")
+local RightFrameThing = Instance.new("Frame")
+local LoadingFrame_2 = Instance.new("Frame")
+local LoadingThing_2 = Instance.new("Frame")
+local MainLogo = Instance.new("ImageLabel")
+local MainLogo2 = Instance.new("ImageLabel")
+local MiddleLogoThing = Instance.new("ImageLabel")
+local AdminNameLabel = Instance.new("TextLabel")
+local BlueColorCorrection = Instance.new("ColorCorrectionEffect")
+
+local ExampleLabel = Instance.new("TextLabel")
+local CmdList = Instance.new("ScrollingFrame")
+local CmdListUIListLayout = Instance.new("UIListLayout")
+local CmdBarFrame = Instance.new("Frame")
+local CmdBarDesign = Instance.new("ImageLabel")
+local CmdBar = Instance.new("TextBox")
+local NotificationFrame = Instance.new("TextLabel")
+local CmdBlurEffect = Instance.new("BlurEffect")
+
+local Main = Instance.new("Folder")
+
+
+IceGear_AdminGui.Name = "IceGear_AdminGui"
+IceGear_AdminGui.Parent = game:GetService("CoreGui")
+
+Intro.Name = "Intro"
+Intro.Parent = IceGear_AdminGui
+
+LeftFrameThing.Name = "LeftFrameThing"
+LeftFrameThing.Parent = Intro
+LeftFrameThing.AnchorPoint = Vector2.new(1, 0.5)
+LeftFrameThing.BackgroundColor3 = Color3.fromRGB(69, 70, 72)
+LeftFrameThing.LayoutOrder = 0
+LeftFrameThing.Position = UDim2.new(-0.00100000005, 0, 0.5, 0)
+LeftFrameThing.Size = UDim2.new(0.5, 0, 0.25, 0)
+
+RightFrameThing.Name = "RightFrameThing"
+RightFrameThing.Parent = Intro
+RightFrameThing.AnchorPoint = Vector2.new(0, 0.5)
+RightFrameThing.BackgroundColor3 = Color3.fromRGB(69, 70, 72)
+RightFrameThing.LayoutOrder = 0
+RightFrameThing.Position = UDim2.new(1.00100005, 0, 0.5, 0)
+RightFrameThing.Size = UDim2.new(0.5, 0, 0.25, 0)
+
+LoadingFrame.Name = "LoadingFrame"
+LoadingFrame.Parent = LeftFrameThing
+LoadingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+LoadingFrame.BackgroundColor3 = Color3.fromRGB(62, 63, 65)
+LoadingFrame.LayoutOrder = 1
+LoadingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+LoadingFrame.Size = UDim2.new(0.100000001, 0, 0.850000024, 0)
+
+LoadingThing.Name = "LoadingThing"
+LoadingThing.Parent = LoadingFrame
+LoadingThing.AnchorPoint = Vector2.new(0.5, 1)
+LoadingThing.BackgroundColor3 = Color3.fromRGB(89, 130, 82)
+LoadingThing.BorderSizePixel = 0
+LoadingThing.LayoutOrder = 1
+LoadingThing.Position = UDim2.new(0.5, 0, 1, 0)
+LoadingThing.Size = UDim2.new(1, 0, 0, 0)
+
+LoadingFrame_2.Name = "LoadingFrame"
+LoadingFrame_2.Parent = RightFrameThing
+LoadingFrame_2.AnchorPoint = Vector2.new(0.5, 0.5)
+LoadingFrame_2.BackgroundColor3 = Color3.fromRGB(62, 63, 65)
+LoadingFrame_2.LayoutOrder = 1
+LoadingFrame_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+LoadingFrame_2.Size = UDim2.new(0.100000001, 0, 0.850000024, 0)
+
+LoadingThing_2.Name = "LoadingThing"
+LoadingThing_2.Parent = LoadingFrame_2
+LoadingThing_2.AnchorPoint = Vector2.new(0.5, 1)
+LoadingThing_2.BackgroundColor3 = Color3.fromRGB(89, 130, 82)
+LoadingThing_2.BorderSizePixel = 0
+LoadingThing_2.LayoutOrder = 1
+LoadingThing_2.Position = UDim2.new(0.5, 0, 1, 0)
+LoadingThing_2.Size = UDim2.new(1, 0, 0, 0)
+
+MiddleLogoThing.Name = "MiddleLogoThing"
+MiddleLogoThing.Parent = Intro
+MiddleLogoThing.AnchorPoint = Vector2.new(0.5, 0.5)
+MiddleLogoThing.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MiddleLogoThing.BackgroundTransparency = 1.000
+MiddleLogoThing.LayoutOrder = 1
+MiddleLogoThing.Position = UDim2.new(0.5, 0, 0.5, 0)
+MiddleLogoThing.Size = UDim2.new(0.126000002, 0, 0.224999994, 0)
+MiddleLogoThing.Visible = false
+MiddleLogoThing.Image = "rbxassetid://3570695787"
+MiddleLogoThing.ImageColor3 = Color3.fromRGB(53, 53, 53)
+MiddleLogoThing.ImageTransparency = 1.000
+MiddleLogoThing.ScaleType = Enum.ScaleType.Fit
+MiddleLogoThing.SliceCenter = Rect.new(100, 100, 100, 100)
+MiddleLogoThing.SliceScale = 0.120
+
+MainLogo.Name = "MainLogo"
+MainLogo.Parent = Intro
+MainLogo.AnchorPoint = Vector2.new(0.5, 0.5)
+MainLogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MainLogo.BackgroundTransparency = 1.000
+MainLogo.LayoutOrder = 2
+MainLogo.Position = UDim2.new(0.5, 0, 0.5, 0)
+MainLogo.Size = UDim2.new(0.126000002, 0, 0.224999994, 0)
+MainLogo.Visible = false
+MainLogo.Image = "rbxassetid://6136750973"
+MainLogo.ImageColor3 = Color3.fromRGB(0, 0, 0)
+MainLogo.ImageTransparency = 1.000
+MainLogo.ScaleType = Enum.ScaleType.Fit
+MainLogo.SliceCenter = Rect.new(100, 100, 100, 100)
+MainLogo.SliceScale = 0.120
+
+MainLogo2.Name = "MainLogo2"
+MainLogo2.Parent = MainLogo
+MainLogo2.AnchorPoint = Vector2.new(0.5, 0.5)
+MainLogo2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MainLogo2.BackgroundTransparency = 1.000
+MainLogo2.LayoutOrder = 4
+MainLogo2.Position = UDim2.new(0.5, 0, 0.5, 0)
+MainLogo2.Size = UDim2.new(0.99000001, 0, 0.99000001, 0)
+MainLogo2.Image = "rbxassetid://6136750973"
+MainLogo2.ImageColor3 = Color3.fromRGB(89, 85, 73)
+MainLogo2.ImageTransparency = 1.000
+MainLogo2.ScaleType = Enum.ScaleType.Fit
+MainLogo2.SliceCenter = Rect.new(100, 100, 100, 100)
+MainLogo2.SliceScale = 0.120
+
+AdminNameLabel.Name = "AdminNameLabel"
+AdminNameLabel.Parent = Intro
+AdminNameLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+AdminNameLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AdminNameLabel.BackgroundTransparency = 1.000
+AdminNameLabel.BorderSizePixel = 0
+AdminNameLabel.Position = UDim2.new(0.5, 0, 0.725000024, 0)
+AdminNameLabel.Size = UDim2.new(0.600000024, 0, 0.075000003, 0)
+AdminNameLabel.Visible = false
+AdminNameLabel.Font = Enum.Font.SourceSans
+AdminNameLabel.Text = ""
+AdminNameLabel.TextColor3 = Color3.fromRGB(200, 197, 166)
+AdminNameLabel.TextScaled = true
+AdminNameLabel.TextSize = 14.000
+AdminNameLabel.TextStrokeTransparency = 0.800
+AdminNameLabel.TextWrapped = true
+
+BlueColorCorrection.Name = "BlueColorCorrection"
+BlueColorCorrection.Parent = game:GetService("Lighting")
+BlueColorCorrection.Brightness = 0
+BlueColorCorrection.Contrast = 0
+BlueColorCorrection.Enabled = true
+BlueColorCorrection.Saturation = 0
+BlueColorCorrection.TintColor = Color3.fromRGB(255, 255, 255)
+
+Main.Name = "Main"
+Main.Parent = IceGear_AdminGui
+
+CmdList.Name = "-CmdList"
+CmdList.Parent = Main
+CmdList.Active = true
+CmdList.Visible = false
+CmdList.AnchorPoint = Vector2.new(0.5, 0)
+CmdList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CmdList.BackgroundTransparency = 1.000
+CmdList.BorderSizePixel = 0
+CmdList.Position = UDim2.new(0.5, 0, 0.574999988, 0)
+CmdList.Size = UDim2.new(0.200000003, 0, 0.300000012, 0)
+CmdList.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+ExampleLabel.Name = "ExampleLabel"
+ExampleLabel.Parent = CmdList
+ExampleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ExampleLabel.BackgroundTransparency = 1.000
+ExampleLabel.BorderSizePixel = 0
+ExampleLabel.Size = UDim2.new(1, 0, 0.174999997, 0)
+ExampleLabel.Visible = false
+ExampleLabel.Font = Enum.Font.SourceSans
+ExampleLabel.TextColor3 = Color3.fromRGB(222, 222, 222)
+ExampleLabel.TextSize = 14.000
+ExampleLabel.TextStrokeTransparency = 1 -- 0.9
+ExampleLabel.TextTransparency = 1 -- 0
+
+
+CmdListUIListLayout.Name = "CmdListUIListLayout"
+CmdListUIListLayout.Parent = CmdList
+CmdListUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+CmdBarFrame.Name = "CmdBarFrame"
+CmdBarFrame.Parent = Main
+CmdBarFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+CmdBarFrame.BackgroundColor3 = Color3.fromRGB(59, 59, 59)
+CmdBarFrame.BackgroundTransparency = 0.500
+CmdBarFrame.BorderSizePixel = 0
+CmdBarFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+CmdBarFrame.Size = UDim2.new(1, 0, 0, 0) -- UDim2.new(1, 0, 0.100000001, 0)
+
+CmdBarDesign.Name = "CmdBarDesign"
+CmdBarDesign.Parent = CmdBarFrame
+CmdBarDesign.AnchorPoint = Vector2.new(0.5, 0.5)
+CmdBarDesign.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CmdBarDesign.BackgroundTransparency = 1.000
+CmdBarDesign.BorderSizePixel = 0
+CmdBarDesign.Position = UDim2.new(0.5, 0, 0.5, 0)
+CmdBarDesign.Size = UDim2.new(0.25, 0, 0.75, 0)
+CmdBarDesign.Image = "rbxassetid://3570695787"
+CmdBarDesign.ImageColor3 = Color3.fromRGB(53, 53, 53)
+CmdBarDesign.ImageTransparency = 1 -- 0.750
+CmdBarDesign.ScaleType = Enum.ScaleType.Slice
+CmdBarDesign.SliceCenter = Rect.new(100, 100, 100, 100)
+CmdBarDesign.SliceScale = 0.120
+
+CmdBar.Name = "CmdBar"
+CmdBar.Parent = CmdBarDesign
+CmdBar.AnchorPoint = Vector2.new(0.5, 0.5)
+CmdBar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CmdBar.BackgroundTransparency = 1.000
+CmdBar.BorderSizePixel = 0
+CmdBar.Position = UDim2.new(0.5, 0, 0.5, 0)
+CmdBar.Size = UDim2.new(0.949999988, 0, 0.949999988, 0)
+CmdBar.Font = Enum.Font.SourceSans
+CmdBar.PlaceholderColor3 = Color3.fromRGB(178, 178, 178)
+CmdBar.PlaceholderText = "Type command here, enter to execute"
+CmdBar.Text = ""
+CmdBar.TextColor3 = Color3.fromRGB(231, 231, 231)
+CmdBar.TextTransparency = 1 -- 0
+CmdBar.TextSize = 17.000
+
+NotificationFrame.Name = "NotificationFrame"
+NotificationFrame.Parent = ScreenGui
+NotificationFrame.AnchorPoint = Vector2.new(0.5, 0)
+NotificationFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+NotificationFrame.BackgroundTransparency = 1.000
+NotificationFrame.BorderSizePixel = 0
+NotificationFrame.Position = UDim2.new(0.5, 0, -0.5, 0) -- UDim2.new(0.5, 0, 0.0250000004, 0)
+NotificationFrame.Size = UDim2.new(0.5, 0, 0, 20)
+NotificationFrame.Visible = false
+NotificationFrame.Font = Enum.Font.SourceSans
+NotificationFrame.Text = ""
+NotificationFrame.TextColor3 = Color3.fromRGB(255, 255, 255)
+NotificationFrame.TextSize = 20.000
+NotificationFrame.TextStrokeTransparency = 0.800
+NotificationFrame.TextWrapped = true
+NotificationFrame.TextYAlignment = Enum.TextYAlignment.Top
+
+CmdBlurEffect.Name = "CmdBlurEffect"
+CmdBlurEffect.Parent = game:GetService("Lighting")
+CmdBlurEffect.Enabled = true
+CmdBlurEffect.Size = 0 -- 10
+
+
+--/ Functions
+
+function IceGear.Notify(message, possibletimer)
+    spawn(function()
+        for i, v in pairs(Main:GetChildren()) do
+            if v.Name == "-NewNotification" then
+                spawn(function()
+                    game:GetService("TweenService"):Create(v, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1, TextStrokeTransparency = 1, Position = UDim2.new(0.5, 0, -0.5, 0)}):Play()
+                    wait(0.25)
+                    v:Destroy()
+                end)
+            end
+        end
+
+        local Notification = NotificationFrame:Clone()
+        Notification.Name = "-NewNotification"
+        Notification.Parent = Main
+        Notification.Visible = true 
+        Notification.Text = tostring(message)
+        game:GetService("TweenService"):Create(Notification, TweenInfo.new(0.5, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextTransparency = 0, TextStrokeTransparency = 0.8, Position = UDim2.new(0.5, 0, 0.0250000004, 0)}):Play()
+
+        local NotificationRemove = false
+        local Timer = 1
+
+        if typeof(possibletimer) == "table" and typeof(possibletimer[1]) == "number" and typeof(possibletimer[2]) == "number" and typeof(possibletimer[3]) == "number" then
+            spawn(function()
+                
+                for i = possibletimer[1], possibletimer[2], -possibletimer[3] do
+                    Timer = i
+
+                    if NotificationRemove == false and Timer > 0 then
+                        wait(possibletimer[3])
+                    else
+                        break
+                    end
+                end
+                if NotificationRemove == false then
+                    NotificationRemove = true 
+                end
+            end)
+        end
+
+        repeat
+            if typeof(possibletimer) == "table" and typeof(possibletimer[1]) == "number" and typeof(possibletimer[2]) == "number" and typeof(possibletimer[3]) == "number" then
+                Notification.Text = tostring(message) .. "\n(" .. Timer .. ")"
+            else
+                Notification.Text = tostring(message)
+            end
+            Notification.Size = UDim2.new(0.5, 0, 9e9, 0)
+            Notification.Size = UDim2.new(0.5, 0, Notification.TextBounds.Y, 0)
+            
+            wait()
+        until NotificationRemove == true or IceGear_AdminGui.Parent ~= game:GetService("CoreGui") or Timer <= 0
+        
+        game:GetService("TweenService"):Create(Notification, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1, TextStrokeTransparency = 1, Position = UDim2.new(0.5, 0, -0.5, 0)}):Play()
+        wait(0.25)
+        Notification:Destroy()
+    end)
+end
+
+function IceGear.UpdateCmdList(cmdguiobject, cmdlistsettings)
+    if cmdguiobject.Name == "-CmdList" and cmdguiobject.ClassName == "ScrollingFrame" then
+        
+        for i, v in pairs(cmdguiobject:GetChildren()) do
+            if v:IsA("GuiObject") and v.Visible == true then
+                v:Destroy()
+            end
+        end
+
+
+        if typeof(cmdlistsettings) == "table" and cmdlistsettings[1] ~= nil and cmdlistsettings[1].ClassName == "TextBox" then
+            if cmdlistsettings[2] == "alphabetical" then
+                
+                cmdguiobject.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+                for i, v in pairs(IceGear.Cmds) do
+                    if v[1] ~= nil and string.find(string.lower(v[1]), string.lower(string.split(cmdlistsettings[1].Text, " ")[1])) then
+                        
+                        local Cmd = ExampleLabel:Clone()
+                        Cmd.Name = v[1] .. "_Cmd"
+                        Cmd.Visible = true
+                        Cmd.Parent = cmdguiobject
+                        game:GetService("TweenService"):Create(Cmd, TweenInfo.new(0.35, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 0, TextStrokeTransparency = 0.9}):Play()
+                        if v[4] ~= nil then
+                            Cmd.Text = v[1] .. " [" .. v[4] .. "]"
+                        else
+                            Cmd.Text = v[1]
+                        end
+                        
+                        local GetTextSizeY = game:GetService("TextService"):GetTextSize(Cmd.Text, Cmd.TextSize, Cmd.Font, Cmd.AbsoluteSize).Y
+                        Cmd.Size = UDim2.new(0.949999988, 0, 0, GetTextSizeY + 10)
+                        
+                        cmdguiobject.CanvasSize = UDim2.new(cmdguiobject.CanvasSize.X.Scale, cmdguiobject.CanvasSize.X.Offset, 0, cmdguiobject.CanvasSize.Y.Offset + Cmd.TextBounds.Y + 15)
+
+                    end
+                end
+                
+            elseif cmdlistsettings[2] == "none" then
+                
+                cmdguiobject.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+                for i, v in pairs(IceGear.Cmds) do
+                    if v[1] ~= nil and string.find(string.lower(v[1]), string.lower(string.split(cmdlistsettings[1].Text, " ")[1])) then
+                        
+                        local Cmd = ExampleLabel:Clone()
+                        Cmd.Name = v[1] .. "_Cmd"
+                        Cmd.Visible = true
+                        Cmd.Parent = cmdguiobject
+                        game:GetService("TweenService"):Create(Cmd, TweenInfo.new(035, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 0, TextStrokeTransparency = 0.9}):Play()
+                        if v[4] ~= nil then
+                            Cmd.Text = v[1] .. " [" .. v[4] .. "]"
+                        else
+                            Cmd.Text = v[1]
+                        end
+                        
+                        local GetTextSizeY = game:GetService("TextService"):GetTextSize(Cmd.Text, Cmd.TextSize, Cmd.Font, Cmd.AbsoluteSize).Y
+                        Cmd.Size = UDim2.new(0.949999988, 0, 0, GetTextSizeY + 10)
+                        
+                        cmdguiobject.CanvasSize = UDim2.new(cmdguiobject.CanvasSize.X.Scale, cmdguiobject.CanvasSize.X.Offset, 0, cmdguiobject.CanvasSize.Y.Offset + Cmd.TextBounds.Y + 15)
+
+                    end
+                end
+                
+                cmdguiobject.CanvasSize = UDim2.new(cmdguiobject.CanvasSize.X.Scale, cmdguiobject.CanvasSize.X.Offset, 0, cmdguiobject.CanvasSize.Y.Offset + 15)
+                
+            end
+        end
+
+    end
+end
+
+function IceGear.GetShortenedPlrFromName(name)
+    name = string.lower(tostring(name))
+    
+    
+    if not game:GetService("Players"):FindFirstChild("random") and name == "random" then
+        local chosen = plrs:GetChildren()[math.random(1, #plrs:GetChildren())]
+        if chosen == LocalPlayer then
+            repeat Heartbeat:wait()
+                chosen = plrs:GetChildren()[math.random(1, #plrs:GetChildren())]
+            until chosen ~= LocalPlayer
+        end
+        IceGear.Notify("Chosen player: "..chosen.Name)
+        return {chosen}	
+    end
+    
+    
+    if not game:GetService("Players"):FindFirstChild("me") and name == "me" or game:GetService("Players"):FindFirstChild("me") and game:GetService("Players"):FindFirstChild("me").ClassName ~= "Player" and name == "me" then
+        return {LocalPlayer}
+    end
+    if not game:GetService("Players"):FindFirstChild("all") and name == "all" or game:GetService("Players"):FindFirstChild("all") and game:GetService("Players"):FindFirstChild("all").ClassName ~= "Player" and name == "all" then
+        return game:GetService("Players"):GetPlayers()
+    end
+    if not game:GetService("Players"):FindFirstChild("others") and name == "others" or game:GetService("Players"):FindFirstChild("others") and game:GetService("Players"):FindFirstChild("others").ClassName ~= "Player" and name == "others" then
+        name = game:GetService("Players"):GetPlayers()
+        for i, v in pairs(name) do
+            if v == LocalPlayer then
+                table.remove(name, i)
+            end
+        end
+        return name
+    end
+    
+    for i, v in pairs(game.Players:GetPlayers()) do
+        if string.lower(string.sub(v.Name, 1, #name)) == name then
+            return {v}
+        end
+    end
+
+    return nil
+end
+
+function IceGear.AddCommand(cmdname, description, mainfunction, cmdargs)
+    for i, v in pairs(IceGear.Cmds) do
+        if v[1] ~= nil and string.lower(v[1]) == string.lower(cmdname) then
+            return nil
+        end
+    end
+
+    if typeof(mainfunction) == "function" then
+        if cmdargs then
+            table.insert(IceGear.Cmds, {cmdname, description, mainfunction, cmdargs})
+        else
+            table.insert(IceGear.Cmds, {cmdname, description, mainfunction})
+        end
+    else
+        return nil
+    end
+end
+
+
+
+--/ Scripting: Intro
+
+game:GetService("TweenService"):Create(LeftFrameThing, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {Position = UDim2.new(1, 0, 0.5, 0)}):Play()
+game:GetService("TweenService"):Create(RightFrameThing, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {Position = UDim2.new(0, 0, 0.5, 0)}):Play()
+wait(0.5)
+
+MiddleLogoThing.Visible = true
+game:GetService("TweenService"):Create(MiddleLogoThing, TweenInfo.new(0.35, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 0}):Play()
+wait(0.35 / 2)
+MainLogo.Visible = true
+MainLogo2.Visible = true
+game:GetService("TweenService"):Create(MainLogo, TweenInfo.new(0.35, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 0}):Play()
+game:GetService("TweenService"):Create(MainLogo, TweenInfo.new(0.35, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {Rotation = 180}):Play()
+game:GetService("TweenService"):Create(MainLogo2, TweenInfo.new(0.35, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 0}):Play()
+wait(0.35)
+
+
+game:GetService("TweenService"):Create(MainLogo, TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Rotation = 360}):Play()
+
+game:GetService("TweenService"):Create(BlueColorCorrection, TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TintColor = Color3.fromRGB(207, 241, 255)}):Play()
+game:GetService("TweenService"):Create(LoadingThing, TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 1, 0)}):Play()
+game:GetService("TweenService"):Create(LoadingThing_2, TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(1, 0, 1, 0)}):Play()
+
+AdminNameLabel.Visible = true
+for i = 1, #"Doge Admin | V" + #Settings.Version do
+    AdminNameLabel.Text = string.sub("Doge Admin | V" .. Settings.Version, 1, i)
+    wait(0.5 / (#"Doge Admin | V" + #Settings.Version))
+end
+game:GetService("TweenService"):Create(MainLogo, TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Rotation = 360 + 180}):Play()
+wait(0.5)
+game:GetService("TweenService"):Create(MainLogo, TweenInfo.new(0.5, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Rotation = 360 * 2 + 180}):Play()
+wait(0.5)
+
+game:GetService("TweenService"):Create(LeftFrameThing, TweenInfo.new(0.35, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {Position = UDim2.new(-0.001, 0, 0.5, 0)}):Play()
+game:GetService("TweenService"):Create(RightFrameThing, TweenInfo.new(0.35, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {Position = UDim2.new(1.001, 0, 0.5, 0)}):Play()
+wait(0.35 / 2)
+
+game:GetService("TweenService"):Create(MiddleLogoThing, TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 1}):Play()
+
+game:GetService("TweenService"):Create(MainLogo, TweenInfo.new(0.45, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 1}):Play()
+game:GetService("TweenService"):Create(MainLogo, TweenInfo.new(0.45, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {Rotation = 45}):Play()
+game:GetService("TweenService"):Create(MainLogo2, TweenInfo.new(0.45, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 1}):Play()
+game:GetService("TweenService"):Create(BlueColorCorrection, TweenInfo.new(0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TintColor = Color3.fromRGB(255, 255, 255)}):Play()
+wait(0.5)
+Intro:Destroy()
+BlueColorCorrection:Destroy()
+
+
+
+--/ Scripting: Main
+
+-- CommandKey Check(s):
+
+if not (typeof(IceGear.CommandKey) == "string" and Enum.KeyCode[IceGear.CommandKey]) then
+    print("Error in IceGear command key, key has been set to back slash.")
+    IceGear.CommandKey = "BackSlash"
+end
+
+-- Commandbar Functionality:
+
+IceGear.Debounces.CmdCooldown = false
+
+IceGear.Events.InputBegan = game:GetService("UserInputService").InputBegan:Connect(function(Key)
+    if Key.KeyCode.Name == IceGear.CommandKey then
+        if IceGear.Debounces.CmdCooldown == false then
+            IceGear.Debounces.CmdCooldown = true
+            
+        
+            game:GetService("TweenService"):Create(CmdBarFrame, TweenInfo.new(0.5, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Size = UDim2.new(1, 0, 0.100000001, 0)}):Play()
+            wait(0.25)
+            CmdBar:CaptureFocus()
+            CmdList.Visible = true
+            game:GetService("TweenService"):Create(CmdBarDesign, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 0.75}):Play()
+            game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 0}):Play()
+            wait(0.25)
+
+            IceGear.Debounces.CmdCooldown = false
+        end
+    end
+end)
+
+CmdBar:GetPropertyChangedSignal("Text"):Connect(function()
+    IceGear.UpdateCmdList(CmdList, {CmdBar, "alphabetical"})
+end)
+
+CmdBar.FocusLost:Connect(function(EnterPressed)
+    spawn(function()
+        if IceGear.Debounces.CmdCooldown == false then
+            if EnterPressed then
+                
+                IceGear.Debounces.CmdCooldown = true
+
+                local getcmd = string.split(string.lower(CmdBar.Text), " ")[1]
+                local getargs = string.split(string.lower(CmdBar.Text), " ")
+
+                if string.sub(getcmd, 1, #IceGear.Prefix) == IceGear.Prefix then
+                    getcmd = string.sub(getcmd, #Settings.Prefix + 1, #getcmd)
+                end
+
+                for i, v in pairs(string.split(string.lower(CmdBar.Text), ",")) do
+                    if i ~= 1 then
+                        table.insert(getargs, v)
+                    end
+                end
+                for i, v in pairs(string.split(string.lower(CmdBar.Text), ", ")) do
+                    if i ~= 1 then
+                        table.insert(getargs, v)
+                    end
+                end
+
+                table.remove(getargs, 1)
+
+                for i, v in pairs(IceGear.Cmds) do
+                    if v[1] ~= nil and string.find(v[1], "/") then
+                        for i2, v2 in pairs( string.split(v[1], "/") ) do
+                            
+                            v2 = string.lower(v2)
+                            if getcmd == v2 then
+                                if v[4] ~= nil then
+                                    spawn(function()
+                                        v[3](unpack(getargs))
+                                    end)
+                                else
+                                    spawn(function()
+                                        v[3]()
+                                    end) 
+                                end
+                                break
+                            end
+
+                        end
+                    elseif v[1] ~= nil then
+                        v[1] = string.lower(v[1])
+                        if getcmd == v[1] then
+                            if v[4] ~= nil then
+                                spawn(function()
+                                    v[3](unpack(getargs))
+                                end)
+                            else
+                                spawn(function()
+                                    v[3]() 
+                                end)
+                            end
+                            break
+                        end
+                    end
+                end
+
+            end
+            
+            game:GetService("TweenService"):Create(CmdBarFrame, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {Size = UDim2.new(1, 0, 0.0, 0)}):Play()
+            CmdBar:ReleaseFocus()
+            CmdList.Visible = false
+            game:GetService("TweenService"):Create(CmdBarDesign, TweenInfo.new(0.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 1}):Play()
+            game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play()
+            wait(0.25)
+            CmdBar.Text = ""
+            IceGear.Debounces.CmdCooldown = false
+        end
+    end)
+end)
+
+LocalPlayer.Chatted:Connect(function(msg)
+    spawn(function()
+        if IceGear.Debounces.CmdCooldown == false and string.sub(msg, 1, #Settings.Prefix) == Settings.Prefix then
+        
+            IceGear.Debounces.CmdCooldown = true
+
+            local getcmd = string.split(string.lower(msg), " ")[1]
+            local getargs = string.split(string.lower(msg), " ")
+
+            if string.sub(getcmd, 1, #IceGear.Prefix) == IceGear.Prefix then
+                getcmd = string.sub(getcmd, #Settings.Prefix + 1, #getcmd)
+            end
+
+            for i, v in pairs(string.split(string.lower(msg), ",")) do
+                if i ~= 1 then
+                    table.insert(getargs, v)
+                end
+            end
+            for i, v in pairs(string.split(string.lower(msg), ", ")) do
+                if i ~= 1 then
+                    table.insert(getargs, v)
+                end
+            end
+
+            table.remove(getargs, 1)
+
+            for i, v in pairs(IceGear.Cmds) do
+                if v[1] ~= nil and string.find(v[1], "/") then
+                    for i2, v2 in pairs( string.split(v[1], "/") ) do
+                        
+                        v2 = string.lower(v2)
+                        if getcmd == v2 then
+                            if v[4] ~= nil then
+                                spawn(function()
+                                    v[3](unpack(getargs))
+                                end)
+                            else
+                                spawn(function()
+                                    v[3]() 
+                                end)
+                            end
+                            break
+                        end
+
+                    end
+                elseif v[1] ~= nil then
+                    v[1] = string.lower(v[1])
+                    if getcmd == v[1] then
+                        if v[4] ~= nil then
+                            spawn(function()
+                                v[3](unpack(getargs))
+                            end)
+                        else
+                            spawn(function()
+                                v[3]() 
+                            end)
+                        end
+                        break
+                    end
+                end
+            end
+
+            game:GetService("TweenService"):Create(CmdBlurEffect, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = 0}):Play()
+            game:GetService("TweenService"):Create(CmdBarFrame, TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {Size = UDim2.new(1, 0, 0.0, 0)}):Play()
+            CmdBar:ReleaseFocus()
+            CmdList.Visible = false
+            game:GetService("TweenService"):Create(CmdBarDesign, TweenInfo.new(0.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 1}):Play()
+            game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play()
+            wait(0.25)
+            CmdBar.Text = ""
+            IceGear.Debounces.CmdCooldown = false
+        end
+    end)
+end)
+
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    LocalPlayer.MaximumSimulationRadius = math.pow(math.huge, math.huge) * math.huge
+    pcall(function() sethiddenproperty(LocalPlayer, "SimulationRadius", math.pow(math.huge, math.huge) * math.huge) end)
+
+    for i, v in pairs(game.Players:GetPlayers()) do
+        if v ~= LocalPlayer then
+            LocalPlayer.MaximumSimulationRadius = math.pow(math.huge, math.huge) * math.huge
+            pcall(function() settings().Physics.AllowSleep = false ; sethiddenproperty(LocalPlayer, "SimulationRadius", math.pow(math.huge, math.huge) * math.huge) end)
+            LocalPlayer.ReplicationFocus = Workspace
+        end
+    end
+end)
+
+IceGear.Notify("Welcome to Doge Admin. \nPrefix is: " .. IceGear.Prefix, {10, 1, 1})
+
+
+IceGear.AddCommand("kill","Kills the included player",function(player)
+	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+        pos = GetHRP().CFrame
+	    local TargetCharacter = Player.Character
+		if TargetCharacter:FindFirstChild("Time") then
+        if TargetCharacter.Time.Value < GetCharacter().Time.Value then
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        elseif TargetCharacter.Time.Value == GetCharacter().Time.Value then
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        end
+        end
+        local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+        Equip(Tool)
+        wait(.003)
+        Tool.Parent = LocalPlayer.Backpack
+        ReplaceHumanoid();
+        wait(4.4)
+        pos = GetHRP().CFrame
+        Tool.Handle.Size = Vector3.new(4,4,4)
+        Equip(Tool)
+        repeat Heartbeat:wait()
+        CFrameTool(Tool, TargetCharacter["Right Arm"].CFrame)
+        until Tool.Parent == TargetCharacter
+        LocalPlayer.Character.Humanoid.Health = 0
+        LocalPlayer.Character = nil
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+	end
+	else
+	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	end
+end,"player")
+
+
+IceGear.AddCommand("bring","Brings the included player",function(player)
+	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+        pos = GetHRP().CFrame
+	    local TargetCharacter = Player.Character
+		if TargetCharacter:FindFirstChild("Time") then
+        if TargetCharacter.Time.Value < GetCharacter().Time.Value then
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        elseif TargetCharacter.Time.Value == GetCharacter().Time.Value then
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        end
+        end
+        local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+        ReplaceHumanoid();
+        wait(4.4)
+        pos = GetHRP().CFrame
+        Tool.Handle.Size = Vector3.new(4,4,4)
+        Equip(Tool)
+        repeat Heartbeat:wait()
+        TargetCharacter["HumanoidRootPart"].CFrame = Tool.Handle.CFrame
+        until Tool.Parent == TargetCharacter
+        LocalPlayer.Character:ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+	end
+	else
+	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	end
+end,"player")
+
+
+IceGear.AddCommand("goto","Teleports to the included player",function(player)
+	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+	        GetHRP().CFrame = getRoot(Player.Character).CFrame
+	    end
+	else
+	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	end
+end,"player")
+
+
+IceGear.AddCommand("view","views the included player",function(player)
+	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+	        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
+	    end
+	else
+	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	end
+end,"player")
+
+IceGear.AddCommand("unview","unviews the included player",function()
+    workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
+end)
+
+IceGear.AddCommand("voidkill","Teleports the included player to void",function(player)
+	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+	       local TargetCharacter = Player.Character
+	       pos = GetHRP().CFrame
+		if TargetCharacter:FindFirstChild("Time") then
+        if TargetCharacter.Time.Value < GetCharacter().Time.Value then
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        elseif TargetCharacter.Time.Value == GetCharacter().Time.Value then
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        end
+        end
+        local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+        ReplaceHumanoid();
+        wait(4)
+        pos = GetHRP().CFrame
+        Tool.Handle.Size = Vector3.new(4,4,4)
+        repeat Heartbeat:wait()
+	LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(999999, workspace.FallenPartsDestroyHeight + 5,999999)
+     Equip(Tool)
+        TargetCharacter["HumanoidRootPart"].CFrame = Tool.Handle.CFrame
+        until Tool.Parent == TargetCharacter
+        LocalPlayer.Character:ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+	    end
+	else
+	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	end
+end,"player")
+
+-- updating cmdlist
+
+IceGear.UpdateCmdList(CmdList, {CmdBar, "alphabetical"})
+
+-- Disconnecting all the events along with the functions if gui is re-executed:
+
+repeat
+    wait()
+until IceGear_AdminGui.Parent ~= game:GetService("CoreGui")
+
+for i, v in pairs(IceGear.Events) do
+    pcall(function()
+        v:Disconnect()
+    end)
+end
+
+IceGear = nil
