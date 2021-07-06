@@ -72,9 +72,6 @@ end
 local GetCharacter = function()
 return LocalPlayer.Character
 end
-local getRArm = function(player)
-return player:FindFirstChild("Right Arm") or player:FindFirstChild("RightLowerArm")
-end
 local GetHRP = function()
 return FindFirstChild(GetCharacter(), "HumanoidRootPart");
 end
@@ -864,7 +861,7 @@ IceGear.AddCommand("kill","Kills the included player",function(player)
         Tool.Handle.Size = Vector3.new(4,4,4)
         Equip(Tool)
         repeat Heartbeat:wait()
-        CFrameTool(Tool, GetRArm(TargetCharacter).CFrame)
+        CFrameTool(Tool, FindFirstChild(TargetCharacter, "RightLowerArm") or FindFirstChild(TargetCharacter, "Right Arm"))
         until Tool.Parent == TargetCharacter
         LocalPlayer.Character.Humanoid.Health = 0
         LocalPlayer.Character = nil
