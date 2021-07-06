@@ -989,7 +989,7 @@ IceGear.AddCommand("whitelist", "whitlists", function(player)
             local Player
             for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
                 Player = v
-                local A_1 = "/w "..Player.Name.." [IceGear Admin]: "..LocalPlayer.Name.." has whitelisted you into our admin and the prefix is ?"
+                local A_1 = "/w "..Player.Name.." [Doge Admin]: "..LocalPlayer.Name.." has whitelisted you into our admin and the prefix is ?"
                 local A_2 = "All"
                 local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
                 Event:FireServer(A_1, A_2)
@@ -1071,7 +1071,7 @@ IceGear.AddCommand("whitelist", "whitlists", function(player)
 
             end
         end
-
+end,"player")
 -- updating cmdlist
 
 IceGear.UpdateCmdList(CmdList, {CmdBar, "alphabetical"})
