@@ -856,7 +856,7 @@ IceGear.AddCommand("kill","Kills the included player",function(player)
         wait(.003)
         Tool.Parent = LocalPlayer.Backpack
         ReplaceHumanoid();
-        wait(4.4)
+        wait(4.2)
         pos = GetHRP().CFrame
         Tool.Handle.Size = Vector3.new(4,4,4)
         Equip(Tool)
