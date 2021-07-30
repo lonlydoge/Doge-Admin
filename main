@@ -911,7 +911,7 @@ IceGear.AddCommand("tp", "Teleports first player argument (player1/players) to s
         Tool.Handle.Size = Vector3.new(4,4,4)
         Equip(Tool)
             repeat Heartbeat:wait()
-            CFrameTool(Tool, Player2.Character.HumanoidRootPart.CFrame * CFrame.new(0,4,0))
+            CFrameTool(Tool, Player2.Character.HumanoidRootPart.CFrame * CFrame.new(0,5.1,0))
             Player1.Character.HumanoidRootPart.CFrame = Tool.Handle.CFrame
             until Tool.Parent == Player1.Character
             end
