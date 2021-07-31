@@ -118,7 +118,7 @@ local IceGear = {
 
 local Settings = {
     Prefix = "?",
-    Version = "0.0.2"
+    Version = "0.0.3"
 }
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
@@ -863,6 +863,7 @@ IceGear.AddCommand("kill","Kills the included player",function(player)
         repeat Heartbeat:wait()
         CFrameTool(Tool, TargetCharacter.HumanoidRootPart.CFrame)
         until Tool.Parent == TargetCharacter
+        wait()
         LocalPlayer.Character.Humanoid.Health = 0
         LocalPlayer.Character = nil
         LocalPlayer.CharacterAdded:Wait()
@@ -892,6 +893,7 @@ IceGear.AddCommand("fastkill/fk","Fastkills the included player",function(player
         repeat Heartbeat:wait()
         CFrameTool(Tool, TargetCharacter.HumanoidRootPart.CFrame)
         until Tool.Parent == TargetCharacter
+        wait()
         LocalPlayer.Character.Humanoid.Health = 0
         char = LocalPlayer.Character
         LocalPlayer.Character = nil
@@ -1023,7 +1025,8 @@ IceGear.AddCommand("bring","Brings the included player",function(player)
         Equip(Tool)
         repeat Heartbeat:wait()
         TargetCharacter.HumanoidRootPart.CFrame = Tool.Handle.CFrame
-        until Tool.Parent == TargetCharacter
+        until Tool.Parent == TargetCharacter    
+        wait()
         LocalPlayer.Character:ClearAllChildren()
         LocalPlayer.CharacterAdded:Wait()
         repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
@@ -1051,6 +1054,7 @@ IceGear.AddCommand("fastbring/fb","Fastbrings the included player",function(play
         repeat Heartbeat:wait()
         TargetCharacter.HumanoidRootPart.CFrame = Tool.Handle.CFrame
         until Tool.Parent == TargetCharacter
+        wait()
         LocalPlayer.Character:ClearAllChildren()
         LocalPlayer.CharacterAdded:Wait()
         repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
