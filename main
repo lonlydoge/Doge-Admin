@@ -14,6 +14,7 @@ end
 FLYING = false
 QEfly = true
 iyflyspeed = 1
+_G.Loopkill = false
 local PlayerService = game:GetService("Players")
 if not workspace:FindFirstChild("Executed") then
 -- Making the time script so it knows to reset or not
@@ -123,7 +124,7 @@ local IceGear = {
 
 local Settings = {
     Prefix = "?",
-    Version = "0.0.6"
+    Version = "0.0.7"
 }
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
@@ -875,6 +876,56 @@ IceGear.AddCommand("kill","Kills the included player",function(player)
 	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
+
+IceGear.AddCommand("loopkill","loopkills the included player",function(player)
+if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+	    _G.Loopkill = true
+	    	    local TargetCharacter = Player.Character
+	    if TargetCharacter:FindFirstChild("Time") then
+        if TargetCharacter.Time.Value < GetCharacter().Time.Value then
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        elseif TargetCharacter.Time.Value == GetCharacter().Time.Value then
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        end
+        end
+	    while _G.Loopkill do
+	   	    local TargetCharacter = Player.Character
+		pos = GetHRP().CFrame
+        local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+        ReplaceHumanoid();
+        pos = GetHRP().CFrame
+        Equip(Tool)
+        Tool.Handle.Size = Vector3.new(4,4,4)
+        CFrameTool(Tool, TargetCharacter.HumanoidRootPart.CFrame)
+       firetouchinterest(TargetCharacter.HumanoidRootPart, Tool.Handle, 0);
+        firetouchinterest(TargetCharacter.HumanoidRootPart, Tool.Handle, 1);
+        LocalPlayer.Character.Humanoid:ChangeState(15)
+        wait(.3);
+        LocalPlayer.Character:Destroy()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+	    wait(.2);
+	    LocalPlayer.Character:Destroy()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+	    end
+	end
+end
+end,"player")
+
+IceGear.AddCommand("unloopkill","stops looopkilling the player",function()
+	_G.Loopkill = false
+end)
 
 IceGear.AddCommand("fastrespawnkill/frk","Fastrespawns the included player",function(player)
 	if IceGear.GetShortenedPlrFromName(player) ~= nil then
