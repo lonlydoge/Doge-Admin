@@ -1,6 +1,6 @@
 
---/ This admin IS skidded from Overflow v1 that got leaked Credits go to them: Synttax, dhruvil, ANN0B1S
---/ If you plan to make a admin using these commands please credit the original creators.
+--/ This admin IS skidded from Icegear that got leaked Credits go to them: Synttax, dhruvil, ANN0B1S
+--/ If you plan to make a admin using these commands please credit the original creators aka lonlydoge 2006.
 
 repeat
     wait()
@@ -122,7 +122,7 @@ local IceGear = {
 
 local Settings = {
     Prefix = "?",
-    Version = "0.0.4"
+    Version = "0.0.5"
 }
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
@@ -860,7 +860,7 @@ IceGear.AddCommand("kill","Kills the included player",function(player)
         wait(.003)
         Tool.Parent = LocalPlayer.Backpack
         ReplaceHumanoid();
-        wait(4.4)
+        wait(4.2)
         pos = GetHRP().CFrame
         Tool.Handle.Size = Vector3.new(4,4,4)
         Equip(Tool)
@@ -921,7 +921,7 @@ IceGear.AddCommand("tp", "Teleports first player argument (player1/players) to s
             for i2, v2 in pairs(IceGear.GetShortenedPlrFromName(player2)) do
                 Player2 = v2
                     Player = v
-                    local TargetCharacter = Player1
+                    local TargetCharacter = Player1.Character
         pos = GetHRP().CFrame
 		if TargetCharacter:FindFirstChild("Time") then
         if TargetCharacter.Time.Value < GetCharacter().Time.Value then
@@ -990,7 +990,7 @@ IceGear.AddCommand("unview","unviews the included player",function()
     workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
 end)
 
-IceGear.AddCommand("fly","flys ig",function()
+IceGear.AddCommand("fly","flys ig",function() -- credits to inf yeild
     if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
     
     local T = getRoot(LocalPlayer.Character)
@@ -1130,6 +1130,29 @@ IceGear.AddCommand("bring","Brings the included player",function(player)
 	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
+IceGear.AddCommand("godmode/god","god modes",function()
+local Cam = workspace.CurrentCamera
+local Pos, Char = Cam.CFrame, LocalPlayer.Character
+local Human = Char and Char:FindFirstChildWhichIsA("Humanoid")
+local nHuman = Human:Clone()
+nHuman.Parent, LocalPlayer.Character = Char, nil
+nHuman:SetStateEnabled(15,false)
+nHuman:SetStateEnabled(1,false)
+nHuman:SetStateEnabled(0,false)
+nHuman.BreakJointsOnDeath, Human = true, Human:Destroy()
+LocalPlayer.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
+nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+	local Script = Char:FindFirstChild("Animate")
+	if Script then
+		Script.Disabled = true
+		wait()
+		Script.Disabled = false
+	end
+	nHuman.Health = nHuman.MaxHealth
+end)
+IceGear.AddCommand("ungod/ungodmode/rj/rejoin","Rejoins",function()
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
+end)
 IceGear.AddCommand("fastbring/fb","Fastbrings the included player",function(player)
 	if IceGear.GetShortenedPlrFromName(player) ~= nil then
         local Player
