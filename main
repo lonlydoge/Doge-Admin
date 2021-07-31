@@ -118,7 +118,7 @@ local IceGear = {
 
 local Settings = {
     Prefix = "?",
-    Version = "0.0.1"
+    Version = "0.0.2"
 }
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
@@ -874,7 +874,37 @@ IceGear.AddCommand("kill","Kills the included player",function(player)
 	end
 end,"player")
 
-
+IceGear.AddCommand("fastkill/fk","Fastkills the included player",function(player)
+	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+        pos = GetHRP().CFrame
+	    local TargetCharacter = Player.Character
+        local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+        Equip(Tool)
+        wait(.003)
+        Tool.Parent = LocalPlayer.Backpack
+        ReplaceHumanoid();
+        pos = GetHRP().CFrame
+        Tool.Handle.Size = Vector3.new(4,4,4)
+        Equip(Tool)
+        repeat Heartbeat:wait()
+        CFrameTool(Tool, TargetCharacter.HumanoidRootPart.CFrame)
+        until Tool.Parent == TargetCharacter
+        LocalPlayer.Character.Humanoid.Health = 0
+        char = LocalPlayer.Character
+        LocalPlayer.Character = nil
+        wait(.4)
+        char:ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+	end
+	else
+	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	end
+end,"player")
 IceGear.AddCommand("tp", "Teleports first player argument (player1/players) to second player argument (player2)", function(player1, player2)
     if IceGear.GetShortenedPlrFromName(player1) ~= nil and IceGear.GetShortenedPlrFromName(player2) ~= nil then
         local Player1
@@ -911,7 +941,7 @@ IceGear.AddCommand("tp", "Teleports first player argument (player1/players) to s
         Tool.Handle.Size = Vector3.new(4,4,4)
         Equip(Tool)
             repeat Heartbeat:wait()
-            CFrameTool(Tool, Player2.Character.HumanoidRootPart.CFrame * CFrame.new(0,5.1,0))
+            CFrameTool(Tool, Player2.Character.HumanoidRootPart.CFrame * CFrame.new(0,4,0))
             Player1.Character.HumanoidRootPart.CFrame = Tool.Handle.CFrame
             until Tool.Parent == Player1.Character
             end
@@ -925,7 +955,7 @@ IceGear.AddCommand("tp", "Teleports first player argument (player1/players) to s
 end, "player 1, player 2")
 
 
-IceGear.AddCommand("goto","Teleports to the included player",function(player)
+IceGear.AddCommand("goto/to","Teleports to the included player",function(player)
 	if IceGear.GetShortenedPlrFromName(player) ~= nil then
         local Player
         for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
@@ -954,6 +984,14 @@ IceGear.AddCommand("unview","unviews the included player",function()
     workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
 end)
 
+IceGear.AddCommand("respawn/re","Respawns your character",function()
+    pos = GetHRP().CFrame
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+end)
+
 IceGear.AddCommand("bring","Brings the included player",function(player)
 	if IceGear.GetShortenedPlrFromName(player) ~= nil then
         local Player
@@ -980,6 +1018,33 @@ IceGear.AddCommand("bring","Brings the included player",function(player)
         Tool.Parent = LocalPlayer.Backpack
         ReplaceHumanoid();
         wait(4.4)
+        pos = GetHRP().CFrame
+        Tool.Handle.Size = Vector3.new(4,4,4)
+        Equip(Tool)
+        repeat Heartbeat:wait()
+        TargetCharacter.HumanoidRootPart.CFrame = Tool.Handle.CFrame
+        until Tool.Parent == TargetCharacter
+        LocalPlayer.Character:ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+	end
+	else
+	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	end
+end,"player")
+IceGear.AddCommand("fastbring/fb","Fastbrings the included player",function(player)
+	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+        pos = GetHRP().CFrame
+	    local TargetCharacter = Player.Character
+        local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+        Equip(Tool)
+        wait(.003)
+        Tool.Parent = LocalPlayer.Backpack
+        ReplaceHumanoid();
         pos = GetHRP().CFrame
         Tool.Handle.Size = Vector3.new(4,4,4)
         Equip(Tool)
