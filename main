@@ -15,6 +15,7 @@ FLYING = false
 QEfly = true
 iyflyspeed = 1
 _G.Loopkill = false
+_G.View = false
 local PlayerService = game:GetService("Players")
 if not workspace:FindFirstChild("Executed") then
 -- Making the time script so it knows to reset or not
@@ -124,7 +125,7 @@ local IceGear = {
 
 local Settings = {
     Prefix = "?",
-    Version = "0.1.0"
+    Version = "0.1.1"
 }
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
@@ -1043,7 +1044,14 @@ IceGear.AddCommand("view","views the included player",function(player)
         local Player
         for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
             Player = v
+            _G.View = true
+            spawn(function()
+            while _G.View do
+            Heartbeat:Wait()
 	        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
+            end
+            workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
+            end)
 	    end
 	else
 	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
@@ -1051,7 +1059,7 @@ IceGear.AddCommand("view","views the included player",function(player)
 end,"player")
 
 IceGear.AddCommand("unview","unviews the included player",function()
-    workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
+    _G.View = false
 end)
 
 IceGear.AddCommand("fly","flys ig",function() -- credits to inf yeild
