@@ -124,7 +124,7 @@ local IceGear = {
 
 local Settings = {
     Prefix = "?",
-    Version = "0.0.9"
+    Version = "0.1.0"
 }
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
@@ -1220,6 +1220,37 @@ end)
 IceGear.AddCommand("ungod/ungodmode/rj/rejoin","Rejoins",function()
 game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
 end)
+IceGear.AddCommand("givetool","gives a player the tool you are equipping",function(player)
+	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            Player = v
+	    local Tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
+	    if Tool then
+		pos = GetHRP().CFrame
+		Tool.Parent = LocalPlayer.Backpack
+		ReplaceHumanoid();
+		Tool.Parent = LocalPlayer.Character
+		CFrameTool(Tool, Player.Character.HumanoidRootPart.CFrame)
+		if (not syn) then wait(.1) end
+		   for i2 = 1,3 do
+            firetouchinterest(Player.Character.HumanoidRootPart, Tool.Handle, 0);
+            wait();
+            firetouchinterest(Player.Character.HumanoidRootPart, Tool.Handle, 1);
+        end
+            wait(.2);
+	    LocalPlayer.Character:Destroy()
+	          LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+	    else
+		IceGear.Notify("Error you did not equip a tool please equip a tool and try again", "Tool Not Found", {5, 1, 1})
+	    end
+end
+else
+IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+end
+end,"player")
 IceGear.AddCommand("fastrespawnbring/frb","Fastrespawns the included player",function(player)
 	if IceGear.GetShortenedPlrFromName(player) ~= nil then
         local Player
