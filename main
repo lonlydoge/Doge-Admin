@@ -120,12 +120,12 @@ local IceGear = {
     Events = {}, 
     Debounces = {CmdCooldown = false}, 
     CommandKey = "BackSlash", -- what to open the commandbar with (check out: https://developer.roblox.com/en-us/api-reference/enum/KeyCode)
-    Prefix = "?", -- need to use prefix in default chat, can also be used in commandbar but isn't necessary
+    Prefix = ".", -- need to use prefix in default chat, can also be used in commandbar but isn't necessary
 }
 
 local Settings = {
-    Prefix = "?",
-    Version = "0.1.1"
+    Prefix = ".",
+    Version = "0.1.2"
 }
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
@@ -1048,9 +1048,13 @@ IceGear.AddCommand("view","views the included player",function(player)
             spawn(function()
             while _G.View do
             Heartbeat:Wait()
+            if not Players:FindFirstChild(Players:GetPlayerFromCharacter(Player)) then
+            _G.View = false
+            IceGear.Notify("Player left (lol imagine leaving)", "Player left", {5, 1, 1})
+            workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
+            end
 	        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
             end
-            workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
             end)
 	    end
 	else
@@ -1060,6 +1064,7 @@ end,"player")
 
 IceGear.AddCommand("unview","unviews the included player",function()
     _G.View = false
+     workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
 end)
 
 IceGear.AddCommand("fly","flys ig",function() -- credits to inf yeild
