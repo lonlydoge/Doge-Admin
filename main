@@ -1048,7 +1048,7 @@ IceGear.AddCommand("view","views the included player",function(player)
             spawn(function()
             while _G.View do
             Heartbeat:Wait()
-            if not Players:FindFirstChild(Players:GetPlayerFromCharacter(Player)) then
+            if not game:GetService("Players"):FindFirstChild(Player.Name) then
             _G.View = false
             IceGear.Notify("Player left (lol imagine leaving)", "Player left", {5, 1, 1})
             workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
