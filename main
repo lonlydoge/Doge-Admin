@@ -1427,6 +1427,7 @@ DogeAdmin.AddCommand("fling", "flings most of the times doesnt work", function(p
             GetHRP().CFrame = pos
             end
             end
+            wait(1)
                   local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
             Equip(Tool)
             wait(.003)
