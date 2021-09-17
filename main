@@ -1,6 +1,5 @@
--- obfuscation didnt work
 
---/ This admin IS skidded from Icegear that got leaked Credits go to them: Synttax, dhruvil, ANN0B1S
+--/ This admin IS skidded from DogeAdmin that got leaked Credits go to them: Synttax, dhruvil, ANN0B1S
 --/ If you plan to make a admin using these commands please credit the original creators aka lonlydoge 2006.
 
 repeat
@@ -16,7 +15,6 @@ FLYING = false
 QEfly = true
 iyflyspeed = 1
 _G.Loopkill = false
-_G.View = false
 local PlayerService = game:GetService("Players")
 if not workspace:FindFirstChild("Executed") then
 -- Making the time script so it knows to reset or not
@@ -116,7 +114,7 @@ local CFrameTool = function(tool, pos)
     tool.Grip = Frame
 end
 
-local IceGear = {
+local DogeAdmin = {
     Cmds = {}, 
     Events = {}, 
     Debounces = {CmdCooldown = false}, 
@@ -130,7 +128,7 @@ local Settings = {
 }
 
 for i, v in pairs(game:GetService("CoreGui"):GetChildren()) do
-    if v.Name == "IceGear_AdminGui" then
+    if v.Name == "DogeAdmin_AdminGui" then
         v:Destroy()
     end
 end
@@ -143,7 +141,7 @@ end
 
 --/ Main Gui Creation 'n it's properties
 
-local IceGear_AdminGui = Instance.new("ScreenGui")
+local DogeAdmin_AdminGui = Instance.new("ScreenGui")
 local Intro = Instance.new("Folder")
 local LeftFrameThing = Instance.new("Frame")
 local LoadingFrame = Instance.new("Frame")
@@ -169,11 +167,11 @@ local CmdBlurEffect = Instance.new("BlurEffect")
 local Main = Instance.new("Folder")
 
 
-IceGear_AdminGui.Name = "IceGear_AdminGui"
-IceGear_AdminGui.Parent = game:GetService("CoreGui")
+DogeAdmin_AdminGui.Name = "DogeAdmin_AdminGui"
+DogeAdmin_AdminGui.Parent = game:GetService("CoreGui")
 
 Intro.Name = "Intro"
-Intro.Parent = IceGear_AdminGui
+Intro.Parent = DogeAdmin_AdminGui
 
 LeftFrameThing.Name = "LeftFrameThing"
 LeftFrameThing.Parent = Intro
@@ -298,7 +296,7 @@ BlueColorCorrection.Saturation = 0
 BlueColorCorrection.TintColor = Color3.fromRGB(255, 255, 255)
 
 Main.Name = "Main"
-Main.Parent = IceGear_AdminGui
+Main.Parent = DogeAdmin_AdminGui
 
 CmdList.Name = "-CmdList"
 CmdList.Parent = Main
@@ -395,7 +393,7 @@ CmdBlurEffect.Size = 0 -- 10
 
 --/ Functions
 
-function IceGear.Notify(message, possibletimer)
+function DogeAdmin.Notify(message, possibletimer)
     spawn(function()
         for i, v in pairs(Main:GetChildren()) do
             if v.Name == "-NewNotification" then
@@ -445,7 +443,7 @@ function IceGear.Notify(message, possibletimer)
             Notification.Size = UDim2.new(0.5, 0, Notification.TextBounds.Y, 0)
             
             wait()
-        until NotificationRemove == true or IceGear_AdminGui.Parent ~= game:GetService("CoreGui") or Timer <= 0
+        until NotificationRemove == true or DogeAdmin_AdminGui.Parent ~= game:GetService("CoreGui") or Timer <= 0
         
         game:GetService("TweenService"):Create(Notification, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1, TextStrokeTransparency = 1, Position = UDim2.new(0.5, 0, -0.5, 0)}):Play()
         wait(0.25)
@@ -453,7 +451,7 @@ function IceGear.Notify(message, possibletimer)
     end)
 end
 
-function IceGear.UpdateCmdList(cmdguiobject, cmdlistsettings)
+function DogeAdmin.UpdateCmdList(cmdguiobject, cmdlistsettings)
     if cmdguiobject.Name == "-CmdList" and cmdguiobject.ClassName == "ScrollingFrame" then
         
         for i, v in pairs(cmdguiobject:GetChildren()) do
@@ -468,7 +466,7 @@ function IceGear.UpdateCmdList(cmdguiobject, cmdlistsettings)
                 
                 cmdguiobject.CanvasSize = UDim2.new(0, 0, 0, 0)
 
-                for i, v in pairs(IceGear.Cmds) do
+                for i, v in pairs(DogeAdmin.Cmds) do
                     if v[1] ~= nil and string.find(string.lower(v[1]), string.lower(string.split(cmdlistsettings[1].Text, " ")[1])) then
                         
                         local Cmd = ExampleLabel:Clone()
@@ -494,7 +492,7 @@ function IceGear.UpdateCmdList(cmdguiobject, cmdlistsettings)
                 
                 cmdguiobject.CanvasSize = UDim2.new(0, 0, 0, 0)
 
-                for i, v in pairs(IceGear.Cmds) do
+                for i, v in pairs(DogeAdmin.Cmds) do
                     if v[1] ~= nil and string.find(string.lower(v[1]), string.lower(string.split(cmdlistsettings[1].Text, " ")[1])) then
                         
                         local Cmd = ExampleLabel:Clone()
@@ -524,7 +522,7 @@ function IceGear.UpdateCmdList(cmdguiobject, cmdlistsettings)
     end
 end
 
-function IceGear.GetShortenedPlrFromName(name)
+function DogeAdmin.GetShortenedPlrFromName(name)
     name = string.lower(tostring(name))
     
     
@@ -535,7 +533,7 @@ function IceGear.GetShortenedPlrFromName(name)
                 chosen = plrs:GetChildren()[math.random(1, #plrs:GetChildren())]
             until chosen ~= LocalPlayer
         end
-        IceGear.Notify("Chosen player: "..chosen.Name)
+        DogeAdmin.Notify("Chosen player: "..chosen.Name)
         return {chosen}	
     end
     
@@ -565,8 +563,8 @@ function IceGear.GetShortenedPlrFromName(name)
     return nil
 end
 
-function IceGear.AddCommand(cmdname, description, mainfunction, cmdargs)
-    for i, v in pairs(IceGear.Cmds) do
+function DogeAdmin.AddCommand(cmdname, description, mainfunction, cmdargs)
+    for i, v in pairs(DogeAdmin.Cmds) do
         if v[1] ~= nil and string.lower(v[1]) == string.lower(cmdname) then
             return nil
         end
@@ -574,9 +572,9 @@ function IceGear.AddCommand(cmdname, description, mainfunction, cmdargs)
 
     if typeof(mainfunction) == "function" then
         if cmdargs then
-            table.insert(IceGear.Cmds, {cmdname, description, mainfunction, cmdargs})
+            table.insert(DogeAdmin.Cmds, {cmdname, description, mainfunction, cmdargs})
         else
-            table.insert(IceGear.Cmds, {cmdname, description, mainfunction})
+            table.insert(DogeAdmin.Cmds, {cmdname, description, mainfunction})
         end
     else
         return nil
@@ -638,19 +636,19 @@ BlueColorCorrection:Destroy()
 
 -- CommandKey Check(s):
 
-if not (typeof(IceGear.CommandKey) == "string" and Enum.KeyCode[IceGear.CommandKey]) then
-    print("Error in IceGear command key, key has been set to back slash.")
-    IceGear.CommandKey = "BackSlash"
+if not (typeof(DogeAdmin.CommandKey) == "string" and Enum.KeyCode[DogeAdmin.CommandKey]) then
+    print("Error in DogeAdmin command key, key has been set to back slash.")
+    DogeAdmin.CommandKey = "BackSlash"
 end
 
 -- Commandbar Functionality:
 
-IceGear.Debounces.CmdCooldown = false
+DogeAdmin.Debounces.CmdCooldown = false
 
-IceGear.Events.InputBegan = game:GetService("UserInputService").InputBegan:Connect(function(Key)
-    if Key.KeyCode.Name == IceGear.CommandKey then
-        if IceGear.Debounces.CmdCooldown == false then
-            IceGear.Debounces.CmdCooldown = true
+DogeAdmin.Events.InputBegan = game:GetService("UserInputService").InputBegan:Connect(function(Key)
+    if Key.KeyCode.Name == DogeAdmin.CommandKey then
+        if DogeAdmin.Debounces.CmdCooldown == false then
+            DogeAdmin.Debounces.CmdCooldown = true
             
         
             game:GetService("TweenService"):Create(CmdBarFrame, TweenInfo.new(0.5, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Size = UDim2.new(1, 0, 0.100000001, 0)}):Play()
@@ -661,26 +659,26 @@ IceGear.Events.InputBegan = game:GetService("UserInputService").InputBegan:Conne
             game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 0}):Play()
             wait(0.25)
 
-            IceGear.Debounces.CmdCooldown = false
+            DogeAdmin.Debounces.CmdCooldown = false
         end
     end
 end)
 
 CmdBar:GetPropertyChangedSignal("Text"):Connect(function()
-    IceGear.UpdateCmdList(CmdList, {CmdBar, "alphabetical"})
+    DogeAdmin.UpdateCmdList(CmdList, {CmdBar, "alphabetical"})
 end)
 
 CmdBar.FocusLost:Connect(function(EnterPressed)
     spawn(function()
-        if IceGear.Debounces.CmdCooldown == false then
+        if DogeAdmin.Debounces.CmdCooldown == false then
             if EnterPressed then
                 
-                IceGear.Debounces.CmdCooldown = true
+                DogeAdmin.Debounces.CmdCooldown = true
 
                 local getcmd = string.split(string.lower(CmdBar.Text), " ")[1]
                 local getargs = string.split(string.lower(CmdBar.Text), " ")
 
-                if string.sub(getcmd, 1, #IceGear.Prefix) == IceGear.Prefix then
+                if string.sub(getcmd, 1, #DogeAdmin.Prefix) == DogeAdmin.Prefix then
                     getcmd = string.sub(getcmd, #Settings.Prefix + 1, #getcmd)
                 end
 
@@ -697,7 +695,7 @@ CmdBar.FocusLost:Connect(function(EnterPressed)
 
                 table.remove(getargs, 1)
 
-                for i, v in pairs(IceGear.Cmds) do
+                for i, v in pairs(DogeAdmin.Cmds) do
                     if v[1] ~= nil and string.find(v[1], "/") then
                         for i2, v2 in pairs( string.split(v[1], "/") ) do
                             
@@ -742,21 +740,21 @@ CmdBar.FocusLost:Connect(function(EnterPressed)
             game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play()
             wait(0.25)
             CmdBar.Text = ""
-            IceGear.Debounces.CmdCooldown = false
+            DogeAdmin.Debounces.CmdCooldown = false
         end
     end)
 end)
 
 LocalPlayer.Chatted:Connect(function(msg)
     spawn(function()
-        if IceGear.Debounces.CmdCooldown == false and string.sub(msg, 1, #Settings.Prefix) == Settings.Prefix then
+        if DogeAdmin.Debounces.CmdCooldown == false and string.sub(msg, 1, #Settings.Prefix) == Settings.Prefix then
         
-            IceGear.Debounces.CmdCooldown = true
+            DogeAdmin.Debounces.CmdCooldown = true
 
             local getcmd = string.split(string.lower(msg), " ")[1]
             local getargs = string.split(string.lower(msg), " ")
 
-            if string.sub(getcmd, 1, #IceGear.Prefix) == IceGear.Prefix then
+            if string.sub(getcmd, 1, #DogeAdmin.Prefix) == DogeAdmin.Prefix then
                 getcmd = string.sub(getcmd, #Settings.Prefix + 1, #getcmd)
             end
 
@@ -773,7 +771,7 @@ LocalPlayer.Chatted:Connect(function(msg)
 
             table.remove(getargs, 1)
 
-            for i, v in pairs(IceGear.Cmds) do
+            for i, v in pairs(DogeAdmin.Cmds) do
                 if v[1] ~= nil and string.find(v[1], "/") then
                     for i2, v2 in pairs( string.split(v[1], "/") ) do
                         
@@ -817,7 +815,7 @@ LocalPlayer.Chatted:Connect(function(msg)
             game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play()
             wait(0.25)
             CmdBar.Text = ""
-            IceGear.Debounces.CmdCooldown = false
+            DogeAdmin.Debounces.CmdCooldown = false
         end
     end)
 end)
@@ -836,13 +834,13 @@ game:GetService("RunService").Heartbeat:Connect(function()
     end
 end)
 
-IceGear.Notify("Welcome to Doge Admin. \nPrefix is: " .. IceGear.Prefix, {10, 1, 1})
+DogeAdmin.Notify("Welcome to Doge Admin. \nPrefix is: " .. DogeAdmin.Prefix, {10, 1, 1})
 
 
-IceGear.AddCommand("kill","Kills the included player",function(player)
-	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("kill","Kills the included player",function(player)
+	if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
         local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
             Player = v
         pos = GetHRP().CFrame
 	    local TargetCharacter = Player.Character
@@ -875,14 +873,14 @@ IceGear.AddCommand("kill","Kills the included player",function(player)
         GetHRP().CFrame = pos
 	end
 	else
-	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	    DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
 
-IceGear.AddCommand("loopkill","loopkills the included player",function(player)
-if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("loopkill","loopkills the included player",function(player)
+if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
         local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
             Player = v
 	    _G.Loopkill = true
 	    	    local TargetCharacter = Player.Character
@@ -925,14 +923,14 @@ if IceGear.GetShortenedPlrFromName(player) ~= nil then
 end
 end,"player")
 
-IceGear.AddCommand("unloopkill","stops looopkilling the player",function()
+DogeAdmin.AddCommand("unloopkill","stops looopkilling the player",function()
 	_G.Loopkill = false
 end)
 
-IceGear.AddCommand("fastrespawnkill/frk","Fastrespawns the included player",function(player)
-	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("fastrespawnkill/frk","Fastrespawns the included player",function(player)
+	if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
         local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
             Player = v
         pos = GetHRP().CFrame
 	    local TargetCharacter = Player.Character
@@ -972,17 +970,17 @@ IceGear.AddCommand("fastrespawnkill/frk","Fastrespawns the included player",func
         GetHRP().CFrame = pos
 	end
 	else
-	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	    DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
-IceGear.AddCommand("tp", "Teleports first player argument (player1/players) to second player argument (player2)", function(player1, player2)
-    if IceGear.GetShortenedPlrFromName(player1) ~= nil and IceGear.GetShortenedPlrFromName(player2) ~= nil then
+DogeAdmin.AddCommand("tp", "Teleports first player argument (player1/players) to second player argument (player2)", function(player1, player2)
+    if DogeAdmin.GetShortenedPlrFromName(player1) ~= nil and DogeAdmin.GetShortenedPlrFromName(player2) ~= nil then
         local Player1
         local Player2
 
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player1)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player1)) do
             Player1 = v
-            for i2, v2 in pairs(IceGear.GetShortenedPlrFromName(player2)) do
+            for i2, v2 in pairs(DogeAdmin.GetShortenedPlrFromName(player2)) do
                 Player2 = v2
                     Player = v
                     local TargetCharacter = Player1.Character
@@ -1023,52 +1021,25 @@ IceGear.AddCommand("tp", "Teleports first player argument (player1/players) to s
             end
         end
     else
-        IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+        DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
     end
 end, "player 1, player 2")
 
 
-IceGear.AddCommand("goto/to","Teleports to the included player",function(player)
-	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("goto/to","Teleports to the included player",function(player)
+	if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
         local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
             Player = v
 	        GetHRP().CFrame = getRoot(Player.Character).CFrame
 	    end
 	else
-	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	    DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
 
-IceGear.AddCommand("view","views the included player",function(player)
-	if IceGear.GetShortenedPlrFromName(player) ~= nil then
-        local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
-            Player = v
-            _G.View = true
-            spawn(function()
-            while _G.View do
-            Heartbeat:Wait()
-            if not game:GetService("Players"):FindFirstChild(Player.Name) then
-            _G.View = false
-            IceGear.Notify("Player left (lol imagine leaving)", "Player left", {5, 1, 1})
-            workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
-            end
-	        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
-            end
-            end)
-	    end
-	else
-	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
-	end
-end,"player")
 
-IceGear.AddCommand("unview","unviews the included player",function()
-    _G.View = false
-     workspace.CurrentCamera.CameraSubject = GetCharacter().Humanoid
-end)
-
-IceGear.AddCommand("fly","flys ig",function() -- credits to inf yeild
+DogeAdmin.AddCommand("fly","flys ig",function() -- credits to inf yeild
     if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
     
     local T = getRoot(LocalPlayer.Character)
@@ -1149,7 +1120,7 @@ IceGear.AddCommand("fly","flys ig",function() -- credits to inf yeild
     FLY()
 end)
 
-IceGear.AddCommand("unfly","Unflys",function()
+DogeAdmin.AddCommand("unfly","Unflys",function()
 	FLYING = false
 	if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
 	if LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
@@ -1158,7 +1129,7 @@ IceGear.AddCommand("unfly","Unflys",function()
 	pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Custom end)
 end)
 
-IceGear.AddCommand("respawn/re","Respawns your character",function()
+DogeAdmin.AddCommand("respawn/re","Respawns your character",function()
     pos = GetHRP().CFrame
         GetCharacter():ClearAllChildren()
         LocalPlayer.CharacterAdded:Wait()
@@ -1166,10 +1137,10 @@ IceGear.AddCommand("respawn/re","Respawns your character",function()
         GetHRP().CFrame = pos
 end)
 
-IceGear.AddCommand("bring","Brings the included player",function(player)
-	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("bring","Brings the included player",function(player)
+	if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
         local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
             Player = v
         pos = GetHRP().CFrame
 	    local TargetCharacter = Player.Character
@@ -1208,10 +1179,10 @@ IceGear.AddCommand("bring","Brings the included player",function(player)
         GetHRP().CFrame = pos
 	end
 	else
-	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	    DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
-IceGear.AddCommand("godmode/god","god modes",function()
+DogeAdmin.AddCommand("godmode/god","god modes",function()
 local Cam = workspace.CurrentCamera
 local Pos, Char = Cam.CFrame, LocalPlayer.Character
 local Human = Char and Char:FindFirstChildWhichIsA("Humanoid")
@@ -1231,13 +1202,13 @@ nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 	end
 	nHuman.Health = nHuman.MaxHealth
 end)
-IceGear.AddCommand("ungod/ungodmode/rj/rejoin","Rejoins",function()
+DogeAdmin.AddCommand("ungod/ungodmode/rj/rejoin","Rejoins",function()
 game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
 end)
-IceGear.AddCommand("givetool","gives a player the tool you are equipping",function(player)
-	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("givetool","gives a player the tool you are equipping",function(player)
+	if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
         local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
             Player = v
 	    local Tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
 	    if Tool then
@@ -1258,17 +1229,17 @@ IceGear.AddCommand("givetool","gives a player the tool you are equipping",functi
         repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
         GetHRP().CFrame = pos
 	    else
-		IceGear.Notify("Error you did not equip a tool please equip a tool and try again", "Tool Not Found", {5, 1, 1})
+		DogeAdmin.Notify("Error you did not equip a tool please equip a tool and try again", "Tool Not Found", {5, 1, 1})
 	    end
 end
 else
-IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 end
 end,"player")
-IceGear.AddCommand("fastrespawnbring/frb","Fastrespawns the included player",function(player)
-	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("fastrespawnbring/frb","Fastrespawns the included player",function(player)
+	if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
         local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
             Player = v
         pos = GetHRP().CFrame
 	    local TargetCharacter = Player.Character
@@ -1304,13 +1275,13 @@ IceGear.AddCommand("fastrespawnbring/frb","Fastrespawns the included player",fun
         GetHRP().CFrame = pos
 	end
 	else
-	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	    DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
-IceGear.AddCommand("voidkill","Teleports the included player to void",function(player)
-	if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("voidkill","Teleports the included player to void",function(player)
+	if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
         local Player
-        for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
             Player = v
 	       local TargetCharacter = Player.Character
 	       pos = GetHRP().CFrame
@@ -1343,14 +1314,14 @@ IceGear.AddCommand("voidkill","Teleports the included player to void",function(p
         GetHRP().CFrame = pos
 	    end
 	else
-	    IceGear.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
+	    DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
 
-IceGear.AddCommand("whitelist", "whitlists", function(player)
-        if IceGear.GetShortenedPlrFromName(player) ~= nil then
+DogeAdmin.AddCommand("whitelist", "whitlists", function(player)
+        if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
             local Player
-            for i, v in pairs(IceGear.GetShortenedPlrFromName(player)) do
+            for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
                 Player = v
                 local A_1 = "/w "..Player.Name.." [Doge Admin]: "..LocalPlayer.Name.." has whitelisted you into our admin and the prefix is ?"
                 local A_2 = "All"
@@ -1359,14 +1330,14 @@ IceGear.AddCommand("whitelist", "whitlists", function(player)
 
                 Player.Chatted:Connect(function(msg)
                     spawn(function()
-                        if IceGear.Debounces.CmdCooldown == false and string.sub(msg, 1, #Settings.Prefix) == Settings.Prefix then
+                        if DogeAdmin.Debounces.CmdCooldown == false and string.sub(msg, 1, #Settings.Prefix) == Settings.Prefix then
 
-                            IceGear.Debounces.CmdCooldown = true
+                            DogeAdmin.Debounces.CmdCooldown = true
 
                             local getcmd = string.split(string.lower(msg), " ")[1]
                             local getargs = string.split(string.lower(msg), " ")
 
-                            if string.sub(getcmd, 1, #IceGear.Prefix) == IceGear.Prefix then
+                            if string.sub(getcmd, 1, #DogeAdmin.Prefix) == DogeAdmin.Prefix then
                                 getcmd = string.sub(getcmd, #Settings.Prefix + 1, #getcmd)
                             end
 
@@ -1383,7 +1354,7 @@ IceGear.AddCommand("whitelist", "whitlists", function(player)
 
                             table.remove(getargs, 1)
 
-                            for i, v in pairs(IceGear.Cmds) do
+                            for i, v in pairs(DogeAdmin.Cmds) do
                                 if v[1] ~= nil and string.find(v[1], "/") then
                                     for i2, v2 in pairs( string.split(v[1], "/") ) do
 
@@ -1427,7 +1398,7 @@ IceGear.AddCommand("whitelist", "whitlists", function(player)
                             game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play()
                             wait(0.25)
                             CmdBar.Text = ""
-                            IceGear.Debounces.CmdCooldown = false
+                            DogeAdmin.Debounces.CmdCooldown = false
                         end
                     end)
                 end)
@@ -1435,20 +1406,66 @@ IceGear.AddCommand("whitelist", "whitlists", function(player)
             end
         end
 end,"player")
+
+DogeAdmin.AddCommand("fling", "flings most of the times doesnt work", function(player)
+    if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
+            Player = v
+            pos = GetHRP().CFrame
+            local TargetCharacter = Player.Character
+            if TargetCharacter:FindFirstChild("Time") then
+            if TargetCharacter.Time.Value < GetCharacter().Time.Value then
+            GetCharacter():ClearAllChildren()
+            LocalPlayer.CharacterAdded:Wait()
+            repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+            GetHRP().CFrame = pos
+            elseif TargetCharacter.Time.Value == GetCharacter().Time.Value then
+            GetCharacter():ClearAllChildren()
+            LocalPlayer.CharacterAdded:Wait()
+            repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+            GetHRP().CFrame = pos
+            end
+            end
+                  local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+            Equip(Tool)
+            wait(.003)
+            Tool.Parent = LocalPlayer.Backpack
+            ReplaceHumanoid();
+            pos = GetHRP().CFrame
+            Tool.Handle.Size = Vector3.new(4,4,4)
+            Equip(Tool)
+                CFrameTool(Tool, TargetCharacter.HumanoidRootPart.CFrame * CFrame.new(0,5,0))
+                if (not syn) then wait(.1) end
+                repeat Heartbeat:wait()
+            for i2 = 1,3 do
+                firetouchinterest(TargetCharacter.HumanoidRootPart, Tool.Handle, 0);
+                wait();
+                firetouchinterest(TargetCharacter.HumanoidRootPart, Tool.Handle, 1);
+                end
+            until Tool.Parent ~= LocalPlayer.Character
+                wait(1)
+                LocalPlayer.Character:Destroy()
+                repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+            GetHRP().CFrame = pos
+        end
+    end
+end,"player")
+
 -- updating cmdlist
 
-IceGear.UpdateCmdList(CmdList, {CmdBar, "alphabetical"})
+DogeAdmin.UpdateCmdList(CmdList, {CmdBar, "alphabetical"})
 
 -- Disconnecting all the events along with the functions if gui is re-executed:
 
 repeat
     wait()
-until IceGear_AdminGui.Parent ~= game:GetService("CoreGui")
+until DogeAdmin_AdminGui.Parent ~= game:GetService("CoreGui")
 
-for i, v in pairs(IceGear.Events) do
+for i, v in pairs(DogeAdmin.Events) do
     pcall(function()
         v:Disconnect()
     end)
 end
 
-IceGear = nil
+DogeAdmin = nil
