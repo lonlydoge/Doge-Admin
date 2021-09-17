@@ -1428,6 +1428,7 @@ DogeAdmin.AddCommand("fling", "flings most of the times doesnt work", function(p
             end
             end
             wait(1)
+            LocalPlayer.Character.HumanoidRootPart.CFrame = TargetCharacter.HumanoidRootPart.CFrame * CFrame.new(1000,1000,1000)
                   local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
             Equip(Tool)
             wait(.003)
