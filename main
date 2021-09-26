@@ -1164,7 +1164,7 @@ DogeAdmin.AddCommand("bring","Brings the included player",function(player)
         ReplaceHumanoid();
         Equip(Tool)
         Tool.Handle.Size = Vector3.new(4,4,4)
-        CFrameTool(Tool, (LocalPlayer.Character and LocalPlayer.Character.HumanoidRootPart.CFrame) * CFrame.new(-2, 2, 0))
+        CFrameTool(Tool, (LocalPlayer.Character and LocalPlayer.Character.HumanoidRootPart.CFrame)
         if (not syn) then
             wait(.1)
         end
