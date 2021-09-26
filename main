@@ -645,21 +645,23 @@ end
 
 DogeAdmin.Debounces.CmdCooldown = false
 
-DogeAdmin.Events.InputBegan = game:GetService("UserInputService").InputBegan:Connect(function(Key)
-    if Key.KeyCode.Name == DogeAdmin.CommandKey then
-        if DogeAdmin.Debounces.CmdCooldown == false then
-            DogeAdmin.Debounces.CmdCooldown = true
+DogeAdmin.Events.InputBegan = game:GetService("UserInputService").InputBegan:Connect(function(Key,isTyping)
+    if not isTyping then
+        if Key.KeyCode.Name == DogeAdmin.CommandKey then
+            if DogeAdmin.Debounces.CmdCooldown == false then
+                DogeAdmin.Debounces.CmdCooldown = true
+                
             
-        
-            game:GetService("TweenService"):Create(CmdBarFrame, TweenInfo.new(0.5, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Size = UDim2.new(1, 0, 0.100000001, 0)}):Play()
-            wait(0.25)
-            CmdBar:CaptureFocus()
-            CmdList.Visible = true
-            game:GetService("TweenService"):Create(CmdBarDesign, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 0.75}):Play()
-            game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 0}):Play()
-            wait(0.25)
+                game:GetService("TweenService"):Create(CmdBarFrame, TweenInfo.new(0.5, Enum.EasingStyle.Circular, Enum.EasingDirection.Out), {Size = UDim2.new(1, 0, 0.100000001, 0)}):Play()
+                wait(0.25)
+                CmdBar:CaptureFocus()
+                CmdList.Visible = true
+                game:GetService("TweenService"):Create(CmdBarDesign, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 0.75}):Play()
+                game:GetService("TweenService"):Create(CmdBar, TweenInfo.new(0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 0}):Play()
+                wait(0.25)
 
-            DogeAdmin.Debounces.CmdCooldown = false
+                DogeAdmin.Debounces.CmdCooldown = false
+            end
         end
     end
 end)
@@ -1164,7 +1166,7 @@ DogeAdmin.AddCommand("bring","Brings the included player",function(player)
         ReplaceHumanoid();
         Equip(Tool)
         Tool.Handle.Size = Vector3.new(4,4,4)
-        CFrameTool(Tool, (LocalPlayer.Character and LocalPlayer.Character.HumanoidRootPart.CFrame)
+        CFrameTool(Tool, (LocalPlayer.Character and LocalPlayer.Character.HumanoidRootPart.CFrame) * CFrame.new(0,0,0))
         if (not syn) then
             wait(.1)
         end
@@ -1183,6 +1185,7 @@ DogeAdmin.AddCommand("bring","Brings the included player",function(player)
 	end
 end,"player")
 DogeAdmin.AddCommand("godmode/god","god modes",function()
+    DogeAdmin.Notify("This quite doesnt work")
 local Cam = workspace.CurrentCamera
 local Pos, Char = Cam.CFrame, LocalPlayer.Character
 local Human = Char and Char:FindFirstChildWhichIsA("Humanoid")
