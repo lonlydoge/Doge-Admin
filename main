@@ -946,6 +946,47 @@ function Sink(Player)
     end)
 end
 
+function Ascend(Player)
+    spawn(function()
+        if not isSat(Player) then
+            getTimeAndReset(Player)
+            local Tool = getTool();
+            if checkIfToolHasHandle(Tool) then
+                pos2 = GetHRP().CFrame
+                replaceHum();
+                Tool.Parent = getChar();
+                Tool.Handle.Size = Vector3.new(4,4,4)
+                CFrameTool(Tool, Player.Character.HumanoidRootPart.CFrame)
+                if (not syn) then
+                   wait(.1) 
+                end
+                for i2 = 1, 3 do
+                firetouchinterest(Player.Character.HumanoidRootPart, Tool.Handle, 0);
+                wait()
+                firetouchinterest(Player.Character.HumanoidRootPart, Tool.Handle, 1);
+                end
+                tweent = true
+                spawn(function()
+                    while tweent do
+                        Heartbeat:Wait()
+                        getChar():FindFirstChildOfClass("Humanoid"):ChangeState(11)
+                    end
+                end)
+                local tween = tweenWSpeed(getChar().HumanoidRootPart,TweenInfo.new(3),{CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,320,0)});
+                tween:Play()
+                wait(3.3)
+                tweent = false
+                LocalPlayer.Character.Humanoid.Health = 0;
+                LocalPlayer.Character = nil
+                LocalPlayer.CharacterAdded:wait()
+                repeat game:GetService("RunService").Heartbeat:wait() until LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                getHRP().CFrame = pos2
+            end
+        end
+    end)
+end
+
+
 DogeAdmin.Notify("Welcome to Doge Admin. \nPrefix is: " .. DogeAdmin.Prefix, {10, 1, 1})
 
 
@@ -1576,6 +1617,53 @@ DogeAdmin.AddCommand("Sink","Sinks the player", function(player)
             end
         end
 end,"player")
+
+DogeAdmin.AddCommand("ascendplayertoheaven/heaven","Ascends the player", function(player)
+    if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
+            Player = v
+            Ascend(Player)
+        end
+    end
+end,"player")
+
+if game.PlaceId == 3342157935 then
+    DogeAdmin.AddCommand("Bald/BaldPlayer","Balds the player", function(player)
+    if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
+        local Player
+        for i, v in pairs(DogeAdmin.GetShortenedPlrFromName(player)) do
+            Player = v
+            spawn(function()
+        if not isSat(Player) then
+            getTimeAndReset(Player)
+            local Tool = getTool();
+            if checkIfToolHasHandle(Tool) then
+                pos2 = LocalPlayer.Character.HumanoidRootPart.CFrame
+                pos3 = Player.Character.HumanoidRootPart.CFrame
+                replaceHum();
+                Tool.Parent = getChar();
+                Tool.Handle.Size = Vector3.new(4,4,4)
+                repeat Heartbeat:wait() 
+                Player.Character.HumanoidRootPart.CFrame = Tool.Handle.CFrame
+                until Tool.Parent ~= getChar()
+                for i = 1,15,1 do
+                wait();
+                LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace")["Hair/Hat/Shades Table"].HatRemovingBrick["Hat Remover "].Head.CFrame
+                end
+                LocalPlayer.Character.HumanoidRootPart.CFrame = pos3
+                wait(.5)
+                LocalPlayer.Character:Destroy()
+                LocalPlayer.CharacterAdded:wait()
+                repeat game:GetService("RunService").Heartbeat:wait() until LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+                Player.Character.HumanoidRootPart.CFrame = pos2
+            end
+        end
+    end)
+        end
+    end
+end,"player")
+end
 
 -- updating cmdlist
 
