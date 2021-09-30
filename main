@@ -883,6 +883,23 @@ local isSat = function(plr)
     end
 end
 
+--[[local hICheck = function(plr)
+    returned = false
+    plr = plr or LocalPlayer
+    if isSat(plr) then
+        returned = true
+    else
+        for _,part in pairs(getChar():GetChildren()) do
+            if part:IsA("BasePart") or part:IsA("MeshPart") then
+                if part.Anchored == true then
+                    returned = true
+                end
+            end
+        end
+    end
+    return returned
+end]]
+
 function tweenWSpeed(part,info,prop)
     local tween = ts:Create(part,info,prop)
     return tween
@@ -1756,6 +1773,28 @@ if game.PlaceId == 3342157935 then
     end
 end,"player")
 end
+DogeAdmin.AddCommand("cmds/commands","shows cmds",function()
+    local a
+    local count = 0
+    for _,_ in pairs(DogeAdmin.Cmds) do
+        count = count + 1
+    end
+    for n,cmd in pairs(DogeAdmin.Cmds) do
+        print(cmd[1])
+        if a ~= nil then
+            if tonumber(count) == tonumber(n) then
+               a = a..cmd[1]
+            else
+                a = a..cmd[1]..", "
+            end
+        elseif a == nil then
+            --first time going through the loop
+            a = cmd[1]..", "
+        end
+    end
+    DogeAdmin.Notify(a)
+end)
+
 
 -- updating cmdlist
 
