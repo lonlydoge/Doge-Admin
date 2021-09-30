@@ -86,8 +86,8 @@ local getRoot = function(char)
 	return char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
 end
 local pos = GetHRP().CFrame
-local GetHumanoid = function()
-return GetCharacter():FindFirstChildWhichIsA("Humanoid")
+local GetHumanoid = function(Char)
+return Char and Char:FindFirstChildWhichIsA("Humanoid") or GetCharacter():FindFirstChildWhichIsA("Humanoid")
 end
 local Equip = function(e)
 if not GetCharacter():FindFirstChild("hReplaced") then
@@ -875,11 +875,11 @@ function getTool()
         return nil
     end
 end
-function isSat(Player)
-    if Player.Character.Humanoid.Sit == true then
-        return true
-    else
-        return false
+local isSat = function(plr)
+    plr = plr or LocalPlayer
+    local Humanoid = GetHumanoid(plr)
+    if (Humanoid) then
+        return Humanoid.Sit
     end
 end
 
