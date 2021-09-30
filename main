@@ -876,7 +876,7 @@ function getTool()
     end
 end
 function isSat(Player)
-    if Player.Character.Humanoid.Jump == true then
+    if Player.Character.Humanoid.Sit == true then
         return true
     else
         return false
@@ -1029,6 +1029,98 @@ DogeAdmin.AddCommand("kill","Kills the included player",function(player)
 	    DogeAdmin.Notify("Could not find player(s)", "Could not find player(s). perhaps username was/usernames were spelt wrong?", {5, 1, 1})
 	end
 end,"player")
+
+DogeAdmin.AddCommand("bringall","brings the included player",function()
+    local count = 0
+    LocalPlayer.Character.Humanoid:UnequipTools()
+    for _,v in pairs(LocalPlayer.Backpack:GetChildren()) do
+        count += 1
+    end
+    local count2 = 0
+    pos = GetHRP().CFrame
+    GetCharacter():ClearAllChildren()
+    LocalPlayer.CharacterAdded:Wait()
+    repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+    GetHRP().CFrame = pos
+    for _,Player in pairs(PlayerService:GetPlayers()) do
+        if Player ~= LocalPlayer then
+        if tonumber(count2) == tonumber(count) then break end
+        count2 += 1
+    
+            local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+            if Tool:FindFirstChild("Took") then
+                repeat Heartbeat:wait()
+                    local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+                until not Tool:FindFirstChild("Took")
+            end
+            local Value = Instance.new("StringValue",Tool)
+            Value.Name = "Took"
+            if not isSat(Player) then 
+            ReplaceHumanoid();
+            pos = GetHRP().CFrame
+            Equip(Tool)
+            Tool.Handle.Size = Vector3.new(4,4,4)
+            CFrameTool(Tool, LocalPlayer.Character.HumanoidRootPart.CFrame)
+            firetouchinterest(Player.Character.HumanoidRootPart, Tool.Handle, 0);
+            firetouchinterest(Player.Character.HumanoidRootPart, Tool.Handle, 1);
+            else
+                DogeAdmin.Notify(Player.Name.." was sitting.")
+            end
+        end
+end
+wait(.3);
+LocalPlayer.Character:Destroy();
+LocalPlayer.CharacterAdded:Wait()
+repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+GetHRP().CFrame = pos
+end)
+
+
+DogeAdmin.AddCommand("killall","Kills the included player",function()
+        local count = 0
+        LocalPlayer.Character.Humanoid:UnequipTools()
+        for _,v in pairs(LocalPlayer.Backpack:GetChildren()) do
+            count += 1
+        end
+        local count2 = 0
+        pos = GetHRP().CFrame
+        GetCharacter():ClearAllChildren()
+        LocalPlayer.CharacterAdded:Wait()
+        repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+        GetHRP().CFrame = pos
+        for _,Player in pairs(PlayerService:GetPlayers()) do
+            if Player ~= LocalPlayer then
+            if tonumber(count2) == tonumber(count) then break end
+            count2 += 1
+        
+                local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+                if Tool:FindFirstChild("Took") then
+                    repeat Heartbeat:wait()
+                        local Tool = LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+                    until not Tool:FindFirstChild("Took")
+                end
+                local Value = Instance.new("StringValue",Tool)
+                Value.Name = "Took"
+                if not isSat(Player) then 
+                ReplaceHumanoid();
+                pos = GetHRP().CFrame
+                Equip(Tool)
+                Tool.Handle.Size = Vector3.new(4,4,4)
+                CFrameTool(Tool, Player.Character.HumanoidRootPart.CFrame * CFrame.new(.5,.5,.5))
+                firetouchinterest(Player.Character.HumanoidRootPart, Tool.Handle, 0);
+                firetouchinterest(Player.Character.HumanoidRootPart, Tool.Handle, 1);
+                else
+                    DogeAdmin.Notify(Player.Name.." was sitting.")
+                end
+            end
+    end
+    wait(.2)
+    LocalPlayer.Character.Humanoid.Health = 0
+    LocalPlayer.Character = nil
+    LocalPlayer.CharacterAdded:Wait()
+    repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
+    GetHRP().CFrame = pos
+end)
 
 DogeAdmin.AddCommand("loopkill","loopkills the included player",function(player)
 if DogeAdmin.GetShortenedPlrFromName(player) ~= nil then
