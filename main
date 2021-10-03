@@ -877,7 +877,7 @@ function getTool()
 end
 local isSat = function(plr)
     plr = plr or LocalPlayer
-    local Humanoid = GetHumanoid(plr)
+    local Humanoid = GetHumanoid(plr.Character)
     if (Humanoid) then
         return Humanoid.Sit
     end
@@ -1059,6 +1059,8 @@ DogeAdmin.AddCommand("bringall","brings the included player",function()
     LocalPlayer.CharacterAdded:Wait()
     repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
     GetHRP().CFrame = pos
+	ReplaceHumanoid();
+	pcall(function ()
     for _,Player in pairs(PlayerService:GetPlayers()) do
         if Player ~= LocalPlayer then
         if tonumber(count2) == tonumber(count) then break end
@@ -1073,8 +1075,7 @@ DogeAdmin.AddCommand("bringall","brings the included player",function()
             local Value = Instance.new("StringValue",Tool)
             Value.Name = "Took"
             if not isSat(Player) then 
-            ReplaceHumanoid();
-            pos = GetHRP().CFrame
+            
             Equip(Tool)
             Tool.Handle.Size = Vector3.new(4,4,4)
             CFrameTool(Tool, LocalPlayer.Character.HumanoidRootPart.CFrame)
@@ -1085,7 +1086,8 @@ DogeAdmin.AddCommand("bringall","brings the included player",function()
             end
         end
 end
-wait(.3);
+end)
+wait(.5);
 LocalPlayer.Character:Destroy();
 LocalPlayer.CharacterAdded:Wait()
 repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
@@ -1105,6 +1107,8 @@ DogeAdmin.AddCommand("killall","Kills the included player",function()
         LocalPlayer.CharacterAdded:Wait()
         repeat wait() until FindFirstChild(GetCharacter(), "HumanoidRootPart")
         GetHRP().CFrame = pos
+		ReplaceHumanoid();
+		pcall(function ()
         for _,Player in pairs(PlayerService:GetPlayers()) do
             if Player ~= LocalPlayer then
             if tonumber(count2) == tonumber(count) then break end
@@ -1119,8 +1123,6 @@ DogeAdmin.AddCommand("killall","Kills the included player",function()
                 local Value = Instance.new("StringValue",Tool)
                 Value.Name = "Took"
                 if not isSat(Player) then 
-                ReplaceHumanoid();
-                pos = GetHRP().CFrame
                 Equip(Tool)
                 Tool.Handle.Size = Vector3.new(4,4,4)
                 CFrameTool(Tool, Player.Character.HumanoidRootPart.CFrame * CFrame.new(.5,.5,.5))
@@ -1131,7 +1133,8 @@ DogeAdmin.AddCommand("killall","Kills the included player",function()
                 end
             end
     end
-    wait(.2)
+	end)
+    wait(.3)
     LocalPlayer.Character.Humanoid.Health = 0
     LocalPlayer.Character = nil
     LocalPlayer.CharacterAdded:Wait()
